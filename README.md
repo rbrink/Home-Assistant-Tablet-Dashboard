@@ -37,3 +37,6 @@ Like many, there is no such base like [HACS](https://hacs.xyz/). HACS provides a
 - layout-card
 - card-mod
 
+### Integrations
+- [Prijsplafond] (https://github.com/rbrink/Home-Assistant-Prijsplafond)
+- Afvalinfo
