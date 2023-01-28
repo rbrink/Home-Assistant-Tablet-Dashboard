@@ -1,0 +1,2888 @@
+title: << NAME >>
+kiosk_mode:
+  entity_settings:
+    - entity:
+        input_boolean.kiosk_mode: 'on'
+      kiosk: true
+    - entity:
+        input_boolean.kiosk_mode: 'off'
+      kiosk: false
+views:
+  - theme: Backend-selected
+    title: Home
+    path: home
+    icon: mdi:home
+    type: custom:grid-layout
+    layout:
+      grid-template-columns: 25% 3% 69% 3%
+      grid-template-rows: 32px 736px auto
+      grid-template-areas: |
+        "top top top top top"
+        "menu . col1 col2 col3"
+        "menu . foot foot foot"
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: '{{states(''sensor.time'')}}'
+          - type: custom:mushroom-template-card
+            primary: Home
+            icon: mdi:home
+            icon_color: light-blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: home
+          - type: custom:gap-card
+            height: 12
+          - type: custom:mushroom-template-card
+            primary: Woonkamer
+            icon: mdi:sofa
+            icon_color: blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: woonkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Slaapkamer
+            icon: mdi:bed
+            icon_color: red
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: slaapkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Logeerkamer
+            icon: mdi:bed
+            icon_color: purple
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: logeerkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Computerkamer
+            icon: mdi:desk
+            icon_color: orange
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: computerkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Tuin
+            icon: hue:room-outdoors
+            icon_color: green
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: tuin
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:gap-card
+            height: 12
+          - type: custom:mushroom-template-card
+            primary: Auto
+            secondary: ''
+            icon: mdi:car
+            icon_color: cyan
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: auto
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Energie
+            secondary: ''
+            icon: mdi:lightning-bolt
+            icon_color: yellow
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: energie
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Weer
+            secondary: ''
+            icon: mdi:weather-partly-cloudy
+            icon_color: deep-orange
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: weer
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Media
+            secondary: ''
+            icon: mdi:movie-open-play
+            icon_color: purple
+            fill_container: false
+            multiline_secondary: false
+            tap_action:
+              action: navigate
+              navigation_path: media
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Instellingen
+            icon: mdi:cog-outline
+            icon_color: light-blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: instellingen
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+        view_layout:
+          grid-area: menu
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: back
+            alignment: start
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: weather
+                entity: weather.buienradar
+                show_conditions: true
+                show_temperature: false
+            alignment: center
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: action
+                icon: mdi:reload
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    command: window_reload
+                icon_color: green
+              - type: action
+                icon: mdi:reload-alert
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    command: lovelace_reload
+                icon_color: red
+              - type: entity
+                entity: input_boolean.kiosk_mode
+                icon_color: light-blue
+                use_entity_picture: false
+                content_info: none
+                tap_action:
+                  action: toggle
+            alignment: end
+        view_layout:
+          grid-column: top
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: Snelle acties
+          - type: custom:mushroom-light-card
+            entity: group.alle_verlichting
+            name: '--- Alle verlichting ---'
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-light-card
+                entity: switch.sonoff_10005ceaee
+                name: Plafondlamp gang
+              - type: custom:mushroom-light-card
+                entity: switch.sonoff_10005d9ff5
+                name: Plafondlamp overloop
+          - type: custom:mushroom-title-card
+            title: Sensoren
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-entity-card
+                entity: binary_sensor.sensor_gang_motion
+                name: Beweging gang
+              - type: custom:mushroom-entity-card
+                entity: binary_sensor.sensor_woonkamer_motion
+                name: Beweging woonkamer
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-entity-card
+                entity: binary_sensor.sensor_overloop_motion
+                name: Beweging overloop
+              - type: custom:mushroom-entity-card
+                entity: binary_sensor.sensor_keuken_motion
+                name: Beweging keuken
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-entity-card
+                entity: binary_sensor.voordeur
+              - type: custom:mushroom-entity-card
+                entity: binary_sensor.achterdeur
+              - type: custom:mushroom-entity-card
+                entity: binary_sensor.kelderdeur
+                name: Kelderdeur
+          - type: custom:mushroom-title-card
+            title: Afvalkalender
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-entity-card
+                entity: sensor.afvalinfo_trash_type_tomorrow
+                name: Afval morgen
+                icon_color: grey
+              - type: custom:mushroom-entity-card
+                entity: sensor.afvalinfo_trash_type_today
+                name: Afval vandaag
+                icon_color: red
+          - type: custom:mushroom-entity-card
+            entity: sensor.afvalinfo_gft
+            name: Groente-, fruit- en tuinafval (gft)
+            icon_color: green
+          - type: custom:mushroom-entity-card
+            entity: sensor.afvalinfo_papier
+            name: Papier
+          - type: custom:mushroom-entity-card
+            entity: sensor.afvalinfo_pbd
+            name: Plastic, blik en drinkverpakkingen (pbd)
+            icon_color: orange
+        view_layout:
+          grid-column: col1
+  - theme: Backend-selected
+    title: Woonkamer
+    path: woonkamer
+    icon: mdi:sofa
+    type: custom:grid-layout
+    layout:
+      grid-template-columns: 25% 3% 69% 3%
+      grid-template-rows: 32px 736px auto
+      grid-template-areas: |
+        "top top top top top"
+        "menu . col1 col2 col3"
+        "menu . foot foot foot"
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: '{{states(''sensor.time'')}}'
+          - type: custom:mushroom-template-card
+            primary: Home
+            icon: mdi:home
+            icon_color: light-blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: home
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:gap-card
+            height: 12
+          - type: custom:mushroom-template-card
+            primary: Woonkamer
+            icon: mdi:sofa
+            icon_color: blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: woonkamer
+          - type: custom:mushroom-template-card
+            primary: Slaapkamer
+            icon: mdi:bed
+            icon_color: red
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: slaapkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Logeerkamer
+            icon: mdi:bed
+            icon_color: purple
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: logeerkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Computerkamer
+            icon: mdi:desk
+            icon_color: orange
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: computerkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Tuin
+            icon: hue:room-outdoors
+            icon_color: green
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: tuin
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:gap-card
+            height: 12
+          - type: custom:mushroom-template-card
+            primary: Auto
+            secondary: ''
+            icon: mdi:car
+            icon_color: cyan
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: auto
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Energie
+            secondary: ''
+            icon: mdi:lightning-bolt
+            icon_color: yellow
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: energie
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Weer
+            secondary: ''
+            icon: mdi:weather-partly-cloudy
+            icon_color: deep-orange
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: weer
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Media
+            secondary: ''
+            icon: mdi:movie-open-play
+            icon_color: purple
+            fill_container: false
+            multiline_secondary: false
+            tap_action:
+              action: navigate
+              navigation_path: media
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Instellingen
+            icon: mdi:cog-outline
+            icon_color: light-blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: instellingen
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+        view_layout:
+          grid-area: menu
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: back
+            alignment: start
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: weather
+                entity: weather.buienradar
+                show_conditions: true
+                show_temperature: false
+            alignment: center
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: action
+                icon: mdi:reload
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    command: window_reload
+                icon_color: green
+              - type: action
+                icon: mdi:reload-alert
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    command: lovelace_reload
+                icon_color: red
+              - type: entity
+                entity: input_boolean.kiosk_mode
+                icon_color: light-blue
+                use_entity_picture: false
+                content_info: none
+                tap_action:
+                  action: toggle
+            alignment: end
+        view_layout:
+          grid-column: top
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: Lichten
+          - type: custom:mushroom-light-card
+            entity: group.verlichting_woonkamer
+            name: '--- Alle verlichting ---'
+            fill_container: false
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-light-card
+                entity: light.ledstrip_woonkamer_tv
+                name: TV
+                icon: mdi:led-strip-variant
+              - type: custom:mushroom-light-card
+                entity: light.go_woonkamer_vitrinekast
+                name: Eettafel hoekje
+                icon: hue:go
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-light-card
+                entity: light.ledstrip_woonkamer_vensterbank_v
+                name: Vensterbank voor
+                icon: mdi:led-strip-variant
+              - type: custom:mushroom-light-card
+                entity: light.ledstrip_woonkamer_vensterbank_a
+                name: Vensterbank achter
+                icon: mdi:led-strip-variant
+          - type: custom:mushroom-title-card
+            title: Sensoren
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-entity-card
+                entity: binary_sensor.sensor_woonkamer_motion
+                name: Beweging
+              - type: custom:mushroom-entity-card
+                entity: sensor.sensor_woonkamer_illuminance
+                name: Lichtsensor
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-entity-card
+                entity: binary_sensor.woonkamer_trillingen
+                name: Trillingen
+              - type: custom:mushroom-entity-card
+                entity: sensor.gemiddelde_temperatuur_woonkamer
+                name: Temperatuur
+          - type: custom:mushroom-title-card
+            title: Schakelaars
+          - type: custom:mushroom-entity-card
+            entity: switch.tv_meubel
+            fill_container: false
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-entity-card
+                entity: switch.lan_accesspoint
+              - type: custom:mushroom-entity-card
+                entity: switch.luchtreiniger_woonkamer
+                name: Luchtreiniger
+        view_layout:
+          grid-column: col1
+  - theme: Backend-selected
+    title: Slaapkamer
+    path: slaapkamer
+    icon: mdi:bed
+    type: custom:grid-layout
+    layout:
+      grid-template-columns: 25% 3% 69% 3%
+      grid-template-rows: 32px 736px auto
+      grid-template-areas: |
+        "top top top top top"
+        "menu . col1 col2 col3"
+        "menu . foot foot foot"
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: '{{states(''sensor.time'')}}'
+          - type: custom:mushroom-template-card
+            primary: Home
+            icon: mdi:home
+            icon_color: light-blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: home
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:gap-card
+            height: 12
+          - type: custom:mushroom-template-card
+            primary: Woonkamer
+            icon: mdi:sofa
+            icon_color: blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: woonkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Slaapkamer
+            icon: mdi:bed
+            icon_color: red
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: slaapkamer
+          - type: custom:mushroom-template-card
+            primary: Logeerkamer
+            icon: mdi:bed
+            icon_color: purple
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: logeerkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Computerkamer
+            icon: mdi:desk
+            icon_color: orange
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: computerkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Tuin
+            icon: hue:room-outdoors
+            icon_color: green
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: tuin
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:gap-card
+            height: 12
+          - type: custom:mushroom-template-card
+            primary: Auto
+            secondary: ''
+            icon: mdi:car
+            icon_color: cyan
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: auto
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Energie
+            secondary: ''
+            icon: mdi:lightning-bolt
+            icon_color: yellow
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: energie
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Weer
+            secondary: ''
+            icon: mdi:weather-partly-cloudy
+            icon_color: deep-orange
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: weer
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Media
+            secondary: ''
+            icon: mdi:movie-open-play
+            icon_color: purple
+            fill_container: false
+            multiline_secondary: false
+            tap_action:
+              action: navigate
+              navigation_path: media
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Instellingen
+            icon: mdi:cog-outline
+            icon_color: light-blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: instellingen
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+        view_layout:
+          grid-area: menu
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: back
+            alignment: start
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: weather
+                entity: weather.buienradar
+                show_conditions: true
+                show_temperature: false
+            alignment: center
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: action
+                icon: mdi:reload
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    command: window_reload
+                icon_color: green
+              - type: action
+                icon: mdi:reload-alert
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    command: lovelace_reload
+                icon_color: red
+              - type: entity
+                entity: input_boolean.kiosk_mode
+                icon_color: light-blue
+                use_entity_picture: false
+                content_info: none
+                tap_action:
+                  action: toggle
+            alignment: end
+        view_layout:
+          grid-column: top
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: Lichten
+          - type: custom:mushroom-light-card
+            entity: light.ledstrip_slaapkamer_kledingkast
+            name: Kledingkast
+            icon: mdi:led-strip-variant
+          - type: custom:mushroom-title-card
+            title: Sensoren
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-entity-card
+                entity: sensor.humidity_9
+                name: Luchtvochtigheid
+              - type: custom:mushroom-entity-card
+                name: Temperatuur
+                entity: sensor.temperature_10
+          - type: horizontal-stack
+            cards: []
+          - type: custom:mushroom-title-card
+            title: Schakelaars
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-entity-card
+                entity: switch.chromecast_en_tv
+              - type: custom:mushroom-entity-card
+                entity: switch.luchtreiniger_slaapkamer
+                name: Luchtreiniger
+          - type: custom:mushroom-entity-card
+            entity: switch.sonoff_1001077f83
+            name: Elektrisch deken
+        view_layout:
+          grid-column: col1
+  - theme: Backend-selected
+    title: Logeerkamer
+    path: logeerkamer
+    icon: mdi:bed
+    type: custom:grid-layout
+    layout:
+      grid-template-columns: 25% 3% 69% 3%
+      grid-template-rows: 32px 736px auto
+      grid-template-areas: |
+        "top top top top top"
+        "menu . col1 col2 col3"
+        "menu . foot foot foot"
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: '{{states(''sensor.time'')}}'
+          - type: custom:mushroom-template-card
+            primary: Home
+            icon: mdi:home
+            icon_color: light-blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: home
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:gap-card
+            height: 12
+          - type: custom:mushroom-template-card
+            primary: Woonkamer
+            icon: mdi:sofa
+            icon_color: blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: woonkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Slaapkamer
+            icon: mdi:bed
+            icon_color: red
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: slaapkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Logeerkamer
+            icon: mdi:bed
+            icon_color: purple
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: logeerkamer
+          - type: custom:mushroom-template-card
+            primary: Computerkamer
+            icon: mdi:desk
+            icon_color: orange
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: computerkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Tuin
+            icon: hue:room-outdoors
+            icon_color: green
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: tuin
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:gap-card
+            height: 12
+          - type: custom:mushroom-template-card
+            primary: Auto
+            secondary: ''
+            icon: mdi:car
+            icon_color: cyan
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: auto
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Energie
+            secondary: ''
+            icon: mdi:lightning-bolt
+            icon_color: yellow
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: energie
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Weer
+            secondary: ''
+            icon: mdi:weather-partly-cloudy
+            icon_color: deep-orange
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: weer
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Media
+            secondary: ''
+            icon: mdi:movie-open-play
+            icon_color: purple
+            fill_container: false
+            multiline_secondary: false
+            tap_action:
+              action: navigate
+              navigation_path: media
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Instellingen
+            icon: mdi:cog-outline
+            icon_color: light-blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: instellingen
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+        view_layout:
+          grid-area: menu
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: back
+            alignment: start
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: weather
+                entity: weather.buienradar
+                show_conditions: true
+                show_temperature: false
+            alignment: center
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: action
+                icon: mdi:reload
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    command: window_reload
+                icon_color: green
+              - type: action
+                icon: mdi:reload-alert
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    command: lovelace_reload
+                icon_color: red
+              - type: entity
+                entity: input_boolean.kiosk_mode
+                icon_color: light-blue
+                use_entity_picture: false
+                content_info: none
+                tap_action:
+                  action: toggle
+            alignment: end
+        view_layout:
+          grid-column: top
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: Sensoren
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-entity-card
+                entity: sensor.humidity_6
+                name: Luchtvochtigheid
+              - type: custom:mushroom-entity-card
+                name: Temperatuur
+                entity: sensor.temperature_7
+        view_layout:
+          grid-column: col1
+  - theme: Backend-selected
+    title: Computerkamer
+    path: computerkamer
+    icon: mdi:desk
+    type: custom:grid-layout
+    layout:
+      grid-template-columns: 25% 3% 69% 3%
+      grid-template-rows: 32px 736px auto
+      grid-template-areas: |
+        "top top top top top"
+        "menu . col1 col2 col3"
+        "menu . foot foot foot"
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: '{{states(''sensor.time'')}}'
+          - type: custom:mushroom-template-card
+            primary: Home
+            icon: mdi:home
+            icon_color: light-blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: home
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:gap-card
+            height: 12
+          - type: custom:mushroom-template-card
+            primary: Woonkamer
+            icon: mdi:sofa
+            icon_color: blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: woonkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Slaapkamer
+            icon: mdi:bed
+            icon_color: red
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: slaapkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Logeerkamer
+            icon: mdi:bed
+            icon_color: purple
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: logeerkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Computerkamer
+            icon: mdi:desk
+            icon_color: orange
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: computerkamer
+          - type: custom:mushroom-template-card
+            primary: Tuin
+            icon: hue:room-outdoors
+            icon_color: green
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: tuin
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:gap-card
+            height: 12
+          - type: custom:mushroom-template-card
+            primary: Auto
+            secondary: ''
+            icon: mdi:car
+            icon_color: cyan
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: auto
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Energie
+            secondary: ''
+            icon: mdi:lightning-bolt
+            icon_color: yellow
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: energie
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Weer
+            secondary: ''
+            icon: mdi:weather-partly-cloudy
+            icon_color: deep-orange
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: weer
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Media
+            secondary: ''
+            icon: mdi:movie-open-play
+            icon_color: purple
+            fill_container: false
+            multiline_secondary: false
+            tap_action:
+              action: navigate
+              navigation_path: media
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Instellingen
+            icon: mdi:cog-outline
+            icon_color: light-blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: instellingen
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+        view_layout:
+          grid-area: menu
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: back
+            alignment: start
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: weather
+                entity: weather.buienradar
+                show_conditions: true
+                show_temperature: false
+            alignment: center
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: action
+                icon: mdi:reload
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    command: window_reload
+                icon_color: green
+              - type: action
+                icon: mdi:reload-alert
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    command: lovelace_reload
+                icon_color: red
+              - type: entity
+                entity: input_boolean.kiosk_mode
+                icon_color: light-blue
+                use_entity_picture: false
+                content_info: none
+                tap_action:
+                  action: toggle
+            alignment: end
+        view_layout:
+          grid-column: top
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: Lichten
+          - type: custom:mushroom-light-card
+            name: '--- Alle verlichting ---'
+            fill_container: false
+            entity: group.verlichting_computerkamer
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-light-card
+                entity: light.play_computerkamer_bureau_r
+                name: Links
+                icon: hue:play-bar-v
+              - type: custom:mushroom-light-card
+                entity: light.play_computerkamer_bureau_l
+                name: Rechts
+                icon: hue:play-bar-v
+          - type: custom:mushroom-light-card
+            entity: light.ledstrip_computerkamer_bureau_o
+            name: Onder
+            icon: mdi:led-strip-variant
+          - type: custom:mushroom-title-card
+            title: Schakelaars
+          - type: custom:mushroom-entity-card
+            entity: switch.desktop_en_toebehoren
+            fill_container: false
+        view_layout:
+          grid-column: col1
+  - theme: Backend-selected
+    title: Tuin
+    path: tuin
+    icon: hue:room-outdoors
+    type: custom:grid-layout
+    layout:
+      grid-template-columns: 25% 3% 69% 3%
+      grid-template-rows: 32px 736px auto
+      grid-template-areas: |
+        "top top top top top"
+        "menu . col1 col2 col3"
+        "menu . foot foot foot"
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: '{{states(''sensor.time'')}}'
+          - type: custom:mushroom-template-card
+            primary: Home
+            icon: mdi:home
+            icon_color: light-blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: home
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:gap-card
+            height: 12
+          - type: custom:mushroom-template-card
+            primary: Woonkamer
+            icon: mdi:sofa
+            icon_color: blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: woonkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Slaapkamer
+            icon: mdi:bed
+            icon_color: red
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: slaapkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Logeerkamer
+            icon: mdi:bed
+            icon_color: purple
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: logeerkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Computerkamer
+            icon: mdi:desk
+            icon_color: orange
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: computerkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Tuin
+            icon: hue:room-outdoors
+            icon_color: green
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: tuin
+          - type: custom:gap-card
+            height: 12
+          - type: custom:mushroom-template-card
+            primary: Auto
+            secondary: ''
+            icon: mdi:car
+            icon_color: cyan
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: auto
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Energie
+            secondary: ''
+            icon: mdi:lightning-bolt
+            icon_color: yellow
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: energie
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Weer
+            secondary: ''
+            icon: mdi:weather-partly-cloudy
+            icon_color: deep-orange
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: weer
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Media
+            secondary: ''
+            icon: mdi:movie-open-play
+            icon_color: purple
+            fill_container: false
+            multiline_secondary: false
+            tap_action:
+              action: navigate
+              navigation_path: media
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Instellingen
+            icon: mdi:cog-outline
+            icon_color: light-blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: instellingen
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+        view_layout:
+          grid-area: menu
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: back
+            alignment: start
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: weather
+                entity: weather.buienradar
+                show_conditions: true
+                show_temperature: false
+            alignment: center
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: action
+                icon: mdi:reload
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    command: window_reload
+                icon_color: green
+              - type: action
+                icon: mdi:reload-alert
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    command: lovelace_reload
+                icon_color: red
+              - type: entity
+                entity: input_boolean.kiosk_mode
+                icon_color: light-blue
+                use_entity_picture: false
+                content_info: none
+                tap_action:
+                  action: toggle
+            alignment: end
+        view_layout:
+          grid-column: top
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: Schakelaars
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-entity-card
+                entity: switch.wifi_socket_socket_1
+                name: Socket 1
+              - type: custom:mushroom-entity-card
+                entity: switch.wifi_socket_2_socket_1
+                name: Socket 2
+        view_layout:
+          grid-column: col1
+  - theme: Backend-selected
+    title: Weer
+    path: weer
+    icon: mdi:weather-partly-cloudy
+    type: custom:grid-layout
+    layout:
+      grid-template-columns: 25% 3% 69% 3%
+      grid-template-rows: 32px 736px auto
+      grid-template-areas: |
+        "top top top top top"
+        "menu . col1 col2 col3"
+        "menu . foot foot foot"
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: '{{states(''sensor.time'')}}'
+          - type: custom:mushroom-template-card
+            primary: Home
+            icon: mdi:home
+            icon_color: light-blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: home
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:gap-card
+            height: 12
+          - type: custom:mushroom-template-card
+            primary: Woonkamer
+            icon: mdi:sofa
+            icon_color: blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: woonkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Slaapkamer
+            icon: mdi:bed
+            icon_color: red
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: slaapkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Logeerkamer
+            icon: mdi:bed
+            icon_color: purple
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: logeerkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Computerkamer
+            icon: mdi:desk
+            icon_color: orange
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: computerkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Tuin
+            icon: hue:room-outdoors
+            icon_color: green
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: tuin
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:gap-card
+            height: 12
+          - type: custom:mushroom-template-card
+            primary: Auto
+            secondary: ''
+            icon: mdi:car
+            icon_color: cyan
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: auto
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Energie
+            secondary: ''
+            icon: mdi:lightning-bolt
+            icon_color: yellow
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: energie
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Weer
+            secondary: ''
+            icon: mdi:weather-partly-cloudy
+            icon_color: deep-orange
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: weer
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+          - type: custom:mushroom-template-card
+            primary: Media
+            secondary: ''
+            icon: mdi:movie-open-play
+            icon_color: purple
+            fill_container: false
+            multiline_secondary: false
+            tap_action:
+              action: navigate
+              navigation_path: media
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Instellingen
+            icon: mdi:cog-outline
+            icon_color: light-blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: instellingen
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+        view_layout:
+          grid-area: menu
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: back
+            alignment: start
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: weather
+                entity: weather.buienradar
+                show_conditions: true
+                show_temperature: false
+            alignment: center
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: action
+                icon: mdi:reload
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    command: window_reload
+                icon_color: green
+              - type: action
+                icon: mdi:reload-alert
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    command: lovelace_reload
+                icon_color: red
+              - type: entity
+                entity: input_boolean.kiosk_mode
+                icon_color: light-blue
+                use_entity_picture: false
+                content_info: none
+                tap_action:
+                  action: toggle
+            alignment: end
+        view_layout:
+          grid-column: top
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: Weerkaart
+          - type: custom:weather-radar-card
+            data_source: RainViewer-Original
+            static_map: false
+            map_style: Voyager
+            zoom_level: 8
+            show_scale: true
+            show_range: false
+            square_map: false
+            extra_labels: false
+            show_zoom: true
+            show_marker: true
+          - type: custom:mushroom-title-card
+            title: Weersverwachting
+          - show_current: false
+            show_forecast: true
+            type: weather-forecast
+            entity: weather.buienradar
+        view_layout:
+          grid-column: col1
+  - theme: Backend-selected
+    title: Media
+    path: media
+    icon: mdi:movie-open-play
+    type: custom:grid-layout
+    layout:
+      grid-template-columns: 25% 3% 69% 3%
+      grid-template-rows: 32px 736px auto
+      grid-template-areas: |
+        "top top top top top"
+        "menu . col1 col2 col3"
+        "menu . foot foot foot"
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: '{{states(''sensor.time'')}}'
+          - type: custom:mushroom-template-card
+            primary: Home
+            icon: mdi:home
+            icon_color: light-blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: home
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:gap-card
+            height: 12
+          - type: custom:mushroom-template-card
+            primary: Woonkamer
+            icon: mdi:sofa
+            icon_color: blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: woonkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Slaapkamer
+            icon: mdi:bed
+            icon_color: red
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: slaapkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Logeerkamer
+            icon: mdi:bed
+            icon_color: purple
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: logeerkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Computerkamer
+            icon: mdi:desk
+            icon_color: orange
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: computerkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Tuin
+            icon: hue:room-outdoors
+            icon_color: green
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: tuin
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:gap-card
+            height: 12
+          - type: custom:mushroom-template-card
+            primary: Auto
+            secondary: ''
+            icon: mdi:car
+            icon_color: cyan
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: auto
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Energie
+            secondary: ''
+            icon: mdi:lightning-bolt
+            icon_color: yellow
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: energie
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Weer
+            secondary: ''
+            icon: mdi:weather-partly-cloudy
+            icon_color: deep-orange
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: weer
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Media
+            secondary: ''
+            icon: mdi:movie-open-play
+            icon_color: purple
+            fill_container: false
+            multiline_secondary: false
+            tap_action:
+              action: navigate
+              navigation_path: media
+          - type: custom:mushroom-template-card
+            primary: Instellingen
+            icon: mdi:cog-outline
+            icon_color: light-blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: instellingen
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+        view_layout:
+          grid-area: menu
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: back
+            alignment: start
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: weather
+                entity: weather.buienradar
+                show_conditions: true
+                show_temperature: false
+            alignment: center
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: action
+                icon: mdi:reload
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    command: window_reload
+                icon_color: green
+              - type: action
+                icon: mdi:reload-alert
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    command: lovelace_reload
+                icon_color: red
+              - type: entity
+                entity: input_boolean.kiosk_mode
+                icon_color: light-blue
+                use_entity_picture: false
+                content_info: none
+                tap_action:
+                  action: toggle
+            alignment: end
+        view_layout:
+          grid-column: top
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: Woonkamer
+          - type: custom:mushroom-media-player-card
+            entity: media_player.speaker_woonkamer
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-media-player-card
+                entity: media_player.shield_woonkamer
+              - type: custom:mushroom-media-player-card
+                entity: media_player.tv_woonkamer
+          - type: custom:mushroom-title-card
+            title: Keuken
+          - type: custom:mushroom-media-player-card
+            entity: media_player.speaker_keuken
+          - type: custom:mushroom-title-card
+            title: Slaapkamer
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-media-player-card
+                entity: media_player.tv_slaapkamer
+              - type: custom:mushroom-media-player-card
+                entity: media_player.scherm_slaapkamer
+          - type: custom:mushroom-title-card
+            title: Computerkamer
+          - type: custom:mushroom-media-player-card
+            entity: media_player.speaker_computerkamer
+          - type: custom:mushroom-title-card
+            title: Logeerkamer
+          - type: custom:mushroom-media-player-card
+            entity: media_player.speaker_logeerkamer
+        view_layout:
+          grid-column: col1
+  - theme: Backend-selected
+    title: Instellingen
+    path: instellingen
+    icon: mdi:cog-outline
+    type: custom:grid-layout
+    layout:
+      grid-template-columns: 25% 3% 69% 3%
+      grid-template-rows: 32px 736px auto
+      grid-template-areas: |
+        "top top top top top"
+        "menu . col1 col2 col3"
+        "menu . foot foot foot"
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: '{{states(''sensor.time'')}}'
+          - type: custom:mushroom-template-card
+            primary: Home
+            icon: mdi:home
+            icon_color: light-blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: home
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:gap-card
+            height: 12
+          - type: custom:mushroom-template-card
+            primary: Woonkamer
+            icon: mdi:sofa
+            icon_color: blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: woonkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Slaapkamer
+            icon: mdi:bed
+            icon_color: red
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: slaapkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Logeerkamer
+            icon: mdi:bed
+            icon_color: purple
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: logeerkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Computerkamer
+            icon: mdi:desk
+            icon_color: orange
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: computerkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Tuin
+            icon: hue:room-outdoors
+            icon_color: green
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: tuin
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:gap-card
+            height: 12
+          - type: custom:mushroom-template-card
+            primary: Auto
+            secondary: ''
+            icon: mdi:car
+            icon_color: cyan
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: auto
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Energie
+            secondary: ''
+            icon: mdi:lightning-bolt
+            icon_color: yellow
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: energie
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Weer
+            secondary: ''
+            icon: mdi:weather-partly-cloudy
+            icon_color: deep-orange
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: weer
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Media
+            secondary: ''
+            icon: mdi:movie-open-play
+            icon_color: purple
+            fill_container: false
+            multiline_secondary: false
+            tap_action:
+              action: navigate
+              navigation_path: media
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Instellingen
+            icon: mdi:cog-outline
+            icon_color: light-blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: instellingen
+        view_layout:
+          grid-area: menu
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: back
+            alignment: start
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: weather
+                entity: weather.buienradar
+                show_conditions: true
+                show_temperature: false
+            alignment: center
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: action
+                icon: mdi:reload
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    command: window_reload
+                icon_color: green
+              - type: action
+                icon: mdi:reload-alert
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    command: lovelace_reload
+                icon_color: red
+              - type: entity
+                entity: input_boolean.kiosk_mode
+                icon_color: light-blue
+                use_entity_picture: false
+                content_info: none
+                tap_action:
+                  action: toggle
+            alignment: end
+        view_layout:
+          grid-column: top
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: Automatieken
+          - type: custom:mushroom-title-card
+            title: Helpers
+        view_layout:
+          grid-column: col1
+  - theme: Backend-selected
+    title: Auto
+    path: auto
+    icon: mdi:car
+    type: custom:grid-layout
+    layout:
+      grid-template-columns: 25% 3% 69% 3%
+      grid-template-rows: 32px 736px auto
+      grid-template-areas: |
+        "top top top top top"
+        "menu . col1 col2 col3"
+        "menu . foot foot foot"
+    badges: []
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: back
+            alignment: start
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: weather
+                entity: weather.buienradar
+                show_conditions: true
+                show_temperature: false
+            alignment: center
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: action
+                icon: mdi:reload
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    command: window_reload
+                icon_color: green
+              - type: action
+                icon: mdi:reload-alert
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    command: lovelace_reload
+                icon_color: red
+              - type: entity
+                entity: input_boolean.kiosk_mode
+                icon_color: light-blue
+                use_entity_picture: false
+                content_info: none
+                tap_action:
+                  action: toggle
+            alignment: end
+        view_layout:
+          grid-column: top
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: << CAR NAME >>
+          - type: picture
+            tap_action:
+              action: none
+            hold_action:
+              action: none
+            image: local/kadjar.png
+            style:
+              width: 50%
+          - type: custom:mushroom-title-card
+            title: Eerstvolgend onderhoud
+          - type: custom:mushroom-template-card
+            primary: >-
+              {{as_timestamp(state_attr('calendar.auto', 'start_time')) |
+              timestamp_local}}
+            secondary: '{{state_attr(''calendar.auto'', ''description'')}}'
+            icon: mdi:wrench
+        view_layout:
+          grid-column: col1
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: '{{states(''sensor.time'')}}'
+          - type: custom:mushroom-template-card
+            primary: Home
+            icon: mdi:home
+            icon_color: light-blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: home
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:gap-card
+            height: 12
+          - type: custom:mushroom-template-card
+            primary: Woonkamer
+            icon: mdi:sofa
+            icon_color: blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: woonkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Slaapkamer
+            icon: mdi:bed
+            icon_color: red
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: slaapkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Logeerkamer
+            icon: mdi:bed
+            icon_color: purple
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: logeerkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Computerkamer
+            icon: mdi:desk
+            icon_color: orange
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: computerkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Tuin
+            icon: hue:room-outdoors
+            icon_color: green
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: tuin
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:gap-card
+            height: 12
+          - type: custom:mushroom-template-card
+            primary: Auto
+            secondary: ''
+            icon: mdi:car
+            icon_color: cyan
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: auto
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+          - type: custom:mushroom-template-card
+            primary: Energie
+            secondary: ''
+            icon: mdi:lightning-bolt
+            icon_color: yellow
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: energie
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Weer
+            secondary: ''
+            icon: mdi:weather-partly-cloudy
+            icon_color: deep-orange
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: weer
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Media
+            secondary: ''
+            icon: mdi:movie-open-play
+            icon_color: purple
+            fill_container: false
+            multiline_secondary: false
+            tap_action:
+              action: navigate
+              navigation_path: media
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Instellingen
+            icon: mdi:cog-outline
+            icon_color: light-blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: instellingen
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+        view_layout:
+          grid-area: menu
+  - theme: Backend-selected
+    title: Energie
+    path: energie
+    icon: mdi:lightning-bolt
+    type: custom:grid-layout
+    layout:
+      grid-template-columns: 25% 3% 69% 3%
+      grid-template-rows: 32px 736px auto
+      grid-template-areas: |
+        "top top top top top"
+        "menu . col1 col2 col3"
+        "menu . foot foot foot"
+    badges: []
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: back
+            alignment: start
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: weather
+                entity: weather.buienradar
+                show_conditions: true
+                show_temperature: false
+            alignment: center
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: action
+                icon: mdi:reload
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    command: window_reload
+                icon_color: green
+              - type: action
+                icon: mdi:reload-alert
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod:
+                    command: lovelace_reload
+                icon_color: red
+              - type: entity
+                entity: input_boolean.kiosk_mode
+                icon_color: light-blue
+                use_entity_picture: false
+                content_info: none
+                tap_action:
+                  action: toggle
+            alignment: end
+        view_layout:
+          grid-column: top
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: Energieverbruik individuele apparaten
+          - type: energy-devices-graph
+          - type: custom:mushroom-title-card
+            title: Prijsplafond (maandelijks totaal)
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-entity-card
+                entity: sensor.prijsplafond_power
+                name: Stroom verbruikt
+                icon: mdi:lightning-bolt
+                icon_color: blue
+                hold_action:
+                  action: none
+                double_tap_action:
+                  action: none
+              - type: custom:mushroom-entity-card
+                entity: sensor.prijsplafond_gas
+                icon: mdi:fire
+                icon_color: red
+                double_tap_action:
+                  action: none
+                hold_action:
+                  action: none
+                name: Gas verbruikt
+          - type: horizontal-stack
+            cards: []
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-template-card
+                primary: Stroomkosten
+                secondary: >-
+                  {{state_attr('sensor.prijsplafond_power',
+                  'this_month_costs')}} euro
+                icon: mdi:cash
+                badge_icon: ''
+                badge_color: ''
+                double_tap_action:
+                  action: none
+                hold_action:
+                  action: none
+                tap_action:
+                  action: none
+                entity: sensor.prijsplafond_power
+                icon_color: blue
+              - type: custom:mushroom-template-card
+                primary: Gaskosten
+                secondary: >-
+                  {{state_attr('sensor.prijsplafond_gas', 'this_month_costs')}}
+                  euro
+                icon: mdi:cash
+                badge_icon: ''
+                badge_color: ''
+                double_tap_action:
+                  action: none
+                hold_action:
+                  action: none
+                tap_action:
+                  action: none
+                entity: sensor.prijsplafond_gas
+                icon_color: red
+        view_layout:
+          grid-column: col1
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: '{{states(''sensor.time'')}}'
+          - type: custom:mushroom-template-card
+            primary: Home
+            icon: mdi:home
+            icon_color: light-blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: home
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:gap-card
+            height: 12
+          - type: custom:mushroom-template-card
+            primary: Woonkamer
+            icon: mdi:sofa
+            icon_color: blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: woonkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Slaapkamer
+            icon: mdi:bed
+            icon_color: red
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: slaapkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Logeerkamer
+            icon: mdi:bed
+            icon_color: purple
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: logeerkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Computerkamer
+            icon: mdi:desk
+            icon_color: orange
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: computerkamer
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Tuin
+            icon: hue:room-outdoors
+            icon_color: green
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: tuin
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:gap-card
+            height: 12
+          - type: custom:mushroom-template-card
+            primary: Auto
+            secondary: ''
+            icon: mdi:car
+            icon_color: cyan
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: auto
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Energie
+            secondary: ''
+            icon: mdi:lightning-bolt
+            icon_color: yellow
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: energie
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+          - type: custom:mushroom-template-card
+            primary: Weer
+            secondary: ''
+            icon: mdi:weather-partly-cloudy
+            icon_color: deep-orange
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: weer
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Media
+            secondary: ''
+            icon: mdi:movie-open-play
+            icon_color: purple
+            fill_container: false
+            multiline_secondary: false
+            tap_action:
+              action: navigate
+              navigation_path: media
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+          - type: custom:mushroom-template-card
+            primary: Instellingen
+            icon: mdi:cog-outline
+            icon_color: light-blue
+            layout: horizontal
+            tap_action:
+              action: navigate
+              navigation_path: instellingen
+            card_mod:
+              style: |
+                ha-card {
+                  box-shadow: none;
+                  background: none;
+                }
+        view_layout:
+          grid-area: menu
